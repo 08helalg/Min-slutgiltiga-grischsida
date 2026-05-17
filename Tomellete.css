@@ -1,0 +1,306 @@
+body {
+    background-color: rgb(0, 50, 0);
+    margin: 0;
+    padding-top: 90px;
+    min-height: 100vh;
+}
+
+.topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 32px;
+    background: rgba(0, 0, 0, 0.35);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(8px);
+}
+
+.hamburger {
+    min-width: 48px;
+    font-size: 1.3rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    border: 1px solid rgba(0, 0, 0, 0.35);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.topbar-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex: 1;
+    min-width: 0;
+    padding: 0;
+}
+
+.topbar-buttons button,
+.hamburger {
+    padding: 10px 16px;
+    border: 1px solid rgba(0, 0, 0, 0.35);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.topbar-buttons button:hover,
+.hamburger:hover {
+    background: rgba(255, 255, 255, 0.18);
+    transform: translateY(-1px);
+}
+
+.search-panel {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+    width: min(100%, 492px);
+    padding: 0 16px;
+}
+
+.search-panel .hero-title {
+    margin: 0;
+    color: #ffffff;
+    font-size: clamp(2.2rem, 4vw, 4rem);
+    line-height: 1.05;
+    text-shadow: 0 0 24px rgba(0, 0, 0, 0.35);
+    font-family: 'Arial Black', Impact, sans-serif;
+}
+
+.search-container {
+    display: flex;
+    width: 100%;
+    max-width: 432px;
+    margin: 0 auto;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 2px solid rgba(0, 0, 0, 0.55);
+    border-radius: 999px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.35);
+}
+
+.search-container input {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 12px 16px;
+    border: 1px solid rgba(0, 0, 0, 0.45);
+    border-radius: 999px;
+    background: rgba(181, 34, 34, 0.1);
+    color: #ffffff;
+    font-style: impact;
+    font-size: 1rem;
+    outline: none;
+}
+
+.search-container input::placeholder {
+    color: rgba(0, 0, 0, 0.7);
+    font-style: impact;
+}
+
+.search-container button {
+    padding: 12px 22px;
+    border: 1px;
+    border-radius: 999px;
+    background: #ffffff;
+    color: #000000;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.search-container button:hover {
+    background: rgb(173, 0, 159);
+}
+
+.content {
+    padding: 20px;
+    text-align: center;
+}
+
+.content h2 {
+    font-size: 2.4rem;
+    line-height: 1.1;
+    margin-bottom: 18px;
+}
+
+.content p {
+    font-size: 1.15rem;
+    line-height: 1.75;
+    max-width: 780px;
+    margin: 0 auto 1.25rem;
+}
+
+img {
+    display: block;
+    margin: 20px auto;
+    border-style: ridge;
+    border-width: 5px;
+    height: 40px;
+}
+
+.content img {
+    width: 100% !important;
+    height: auto !important;
+    border: none !important;
+    margin: 20px auto !important;
+    max-width: 600px;
+}
+
+text {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    border-width: 5px;
+    border: rgb(0, 0, 0);
+}
+
+.cart-button {
+    min-width: 48px;
+    font-size: 1.3rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    border: 1px solid rgba(0, 0, 0, 0.35);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.cart-button:hover {
+    background: rgba(255, 255, 255, 0.18);
+    transform: translateY(-1px);
+}
+
+.cart-panel {
+    position: fixed;
+    top: 0;
+    right: -50%;
+    width: 50%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.9);
+    border-left: 1px solid rgba(255, 255, 255, 0.18);
+    z-index: 999;
+    transition: right 0.3s ease;
+    overflow-y: auto;
+}
+
+.cart-panel.open {
+    right: 0;
+}
+
+.cart-content {
+    padding: 20px;
+    color: #ffffff;
+    position: relative;
+}
+
+.close-cart {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.close-cart:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+#cartItems {
+    margin-top: 60px;
+    padding: 20px 0;
+}
+
+.cart-toast {
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    background: rgba(0, 0, 0, 0.88);
+    color: #ffffff;
+    padding: 12px 16px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    z-index: 1000;
+    pointer-events: none;
+    max-width: calc(100vw - 40px);
+}
+
+.cart-toast.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.poster {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    transition: transform 0.2s ease;
+    cursor: pointer;
+}
+
+.poster:hover {
+    transform: scale(1.05);
+}
+
+.poster img {
+    width: 100% !important;
+    height: 300px !important;
+    object-fit: cover !important;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    border: none !important;
+    margin: 0 !important;
+}
+
+.poster p {
+    margin: 0;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+

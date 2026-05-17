@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kontakt - Musik=grisch.com</title>
+    <link rel="stylesheet" href="css/Tomellete.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="site-logo" href="greggs.html">Misz Musik Hörna</a>
+        <nav class="nav-list" aria-label="Primär navigation">
+          <a href="greggs.html">Hem</a>
+          <a href="gallerian.html">Gallerian</a>
+          <a href="erbjudanden.html">Erbjudanden</a>
+          <a href="om.html">Om</a>
+          <a href="kontakt.html">Kontakt</a>
+        </nav>
+        <button class="cart-button" type="button" aria-label="Öppna kundvagn">
+          🛒
+        </button>
+      </div>
+    </header>
+
+    <div class="cart-panel" id="cartPanel">
+      <div class="cart-content">
+        <button class="close-cart" id="closeCart" aria-label="Stäng kundvagn">
+          ✕
+        </button>
+        <h2>Kundvagn</h2>
+        <div id="cartItems"></div>
+      </div>
+    </div>
+
+    <main class="content">
+      <section class="section">
+        <h2 class="section-title">Kontakta oss</h2>
+        <p>Hör av dig om du har några frågor!</p>
+        <form class="contact-form">
+          <label>
+            Namn
+            <input type="text" name="name" placeholder="Ditt namn" required />
+          </label>
+          <label>
+            E-post
+            <input
+              type="email"
+              name="email"
+              placeholder="mej@example.com"
+              required
+            />
+          </label>
+          <label>
+            Ämne
+            <input
+              type="text"
+              name="subject"
+              placeholder="Vad gäller din fråga?"
+            />
+          </label>
+          <label>
+            Meddelande
+            <textarea
+              name="message"
+              placeholder="Skriv ditt meddelande här..."
+            ></textarea>
+          </label>
+          <div class="form-actions">
+            <button class="primary" type="submit">Skicka</button>
+            <button class="secondary" type="reset">Rensa</button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 MISZ MUSIK HÖRNA</p>
+      <p>För alla musiknördar</p>
+    </footer>
+
+    <script>
+      const cartButton = document.querySelector(".cart-button");
+      const cartPanel = document.getElementById("cartPanel");
+      const closeCart = document.getElementById("closeCart");
+
+      cartButton.addEventListener("click", () => {
+        cartPanel.classList.add("open");
+      });
+
+      closeCart.addEventListener("click", () => {
+        cartPanel.classList.remove("open");
+      });
+
+      cartPanel.addEventListener("click", (e) => {
+        if (e.target === cartPanel) {
+          cartPanel.classList.remove("open");
+        }
+      });
+
+      // Load cart items
+      function loadCart() {
+        const cartItems = document.getElementById("cartItems");
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        cartItems.innerHTML = "";
+        cart.forEach((item, index) => {
+          const div = document.createElement("div");
+          div.innerHTML = `<p>${item.name} - ${item.price} kr <button onclick="removeFromCart(${index})">Ta bort</button></p>`;
+          cartItems.appendChild(div);
+        });
+      }
+
+      function removeFromCart(index) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        cart.splice(index, 1);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        loadCart();
+      }
+
+      loadCart();
+    </script>
+  </body>
+</html>

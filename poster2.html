@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ICEMAN - Musik=grisch.com</title>
+    <link rel="stylesheet" href="css/Tomellete.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="site-logo" href="greggs.html">Musik=grisch</a>
+        <nav class="nav-list" aria-label="Primär navigation">
+          <a href="greggs.html">Hem</a>
+          <a href="gallerian.html">Gallerian</a>
+          <a href="erbjudanden.html">Erbjudanden</a>
+          <a href="om.html">Om</a>
+          <a href="kontakt.html">Kontakt</a>
+        </nav>
+        <button class="cart-button" type="button" aria-label="Öppna kundvagn">
+          🛒
+        </button>
+      </div>
+    </header>
+
+    <div class="cart-panel" id="cartPanel">
+      <div class="cart-content">
+        <button class="close-cart" id="closeCart" aria-label="Stäng kundvagn">
+          ✕
+        </button>
+        <h2>Kundvagn</h2>
+        <div id="cartItems"></div>
+        <p id="cartTotal">Totalt: 0 kr</p>
+        <button id="checkoutButton" type="button">Checkout</button>
+      </div>
+    </div>
+
+    <div id="cartToast" class="cart-toast" aria-live="polite">
+      Tillagd i varukorgen
+    </div>
+
+    <div class="content">
+      <img
+        src="images/images (1).jpg"
+        alt="Poster 2"
+        style="width: 80%; max-width: 600px; margin: 20px auto; display: block"
+      />
+      <p>Fakta om ICEMAN:</p>
+      <p>Drakes nioende studioalbum</p>
+      <p>Pris: 250 kr</p>
+      <button onclick="addToCart('ICEMAN', 250)">Köp</button>
+    </div>
+
+    <script>
+      const cartButton = document.querySelector(".cart-button");
+      const cartPanel = document.getElementById("cartPanel");
+      const closeCart = document.getElementById("closeCart");
+
+      cartButton.addEventListener("click", () => {
+        loadCart();
+        cartPanel.classList.add("open");
+      });
+
+      closeCart.addEventListener("click", () => {
+        cartPanel.classList.remove("open");
+      });
+
+      cartPanel.addEventListener("click", (e) => {
+        if (e.target === cartPanel) {
+          cartPanel.classList.remove("open");
+        }
+      });
+
+      let toastTimeout;
+      const cartToast = document.getElementById("cartToast");
+      const checkoutButton = document.getElementById("checkoutButton");
+
+      function showCartToast(message) {
+        cartToast.textContent = message;
+        cartToast.classList.add("visible");
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+          cartToast.classList.remove("visible");
+        }, 5000);
+      }
+
+      function addToCart(name, price) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        cart.push({ name, price });
+        localStorage.setItem("cart", JSON.stringify(cart));
+        showCartToast(`${name} tillagd i varukorgen`);
+      }
+
+      // Load cart items
+      function loadCart() {
+        const cartItems = document.getElementById("cartItems");
+        const cartTotal = document.getElementById("cartTotal");
+        const checkoutButton = document.getElementById("checkoutButton");
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        cartItems.innerHTML = "";
+        let total = 0;
+        cart.forEach((item, index) => {
+          total += item.price;
+          const div = document.createElement("div");
+          div.innerHTML = `<p>${item.name} - ${item.price} kr <button onclick="removeFromCart(${index})">Ta bort</button></p>`;
+          cartItems.appendChild(div);
+        });
+        cartTotal.textContent = `Totalt: ${total} kr`;
+        checkoutButton.disabled = total === 0;
+      }
+
+      function removeFromCart(index) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        cart.splice(index, 1);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        loadCart();
+      }
+
+      checkoutButton.addEventListener("click", () => {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        let total = cart.reduce((sum, item) => sum + item.price, 0);
+        if (total === 0) {
+          showCartToast("Kundvagnen är tom");
+          return;
+        }
+        showCartToast(`Totalt pris: ${total} kr - Tack för ditt köp!`);
+        localStorage.removeItem("cart");
+        loadCart();
+      });
+
+      loadCart();
+    </script>
+  </body>
+</html>
